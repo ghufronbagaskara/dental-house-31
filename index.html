@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#131b23">
+    <meta name="description" content="Jelajahi denah dan maket 3D Dental House, rancangan klinik gigi keluarga Kelompok 31.">
+    <link rel="icon" href="/house.svg" type="image/svg+xml">
+    <title>Dental House · Maket Klinik Gigi</title>
+  </head>
+  <body>
+    <header class="masthead wrap">
+      <a class="brand" href="#utama">
+        <img src="/house.svg" width="36" height="36" alt="">
+        <span>Dental House<small>Family Dental Clinic</small></span>
+      </a>
+      <a class="index-link" href="#ruang">Daftar ruang <span aria-hidden="true">↓</span></a>
+    </header>
+    <main id="utama" class="wrap">
+      <div class="title-block">
+        <div>
+          <p class="kicker"><span></span> Studi desain klinik <span class="divider">/</span> Kelompok 31</p>
+          <h1>Dental House</h1>
+        </div>
+        <p class="intro">Jelajahi klinik gigi keluarga dari resepsionis hingga ruang perawatan. Pilih nomor untuk membaca fungsi ruang.</p>
+      </div>
+
+      <section class="sheet" aria-label="Maket interaktif">
+        <div class="sheet-bar">
+          <div class="sheet-id"><b>A.01</b><span id="view-caption">Potongan bangunan</span></div>
+          <div class="modes" role="group" aria-label="Tampilan maket">
+            <button data-view="model" type="button" aria-pressed="true" disabled>Maket 3D</button>
+            <button data-view="plan" type="button" aria-pressed="false">Denah</button>
+            <button data-view="facade" type="button" aria-pressed="false" disabled>Fasad</button>
+          </div>
+        </div>
+        <div class="stage" id="stage">
+          <div id="viewport" hidden></div>
+          <div id="plan"></div>
+          <div id="markers" hidden></div>
+          <div class="stage-stamp" aria-hidden="true">DH <span>/</span> 31 <small>23 × 14 m</small></div>
+          <div class="camera-tools" id="camera-tools" role="group" aria-label="Kontrol kamera" hidden>
+            <button type="button" id="zoom-in" aria-label="Perbesar" title="Perbesar">+</button>
+            <button type="button" id="zoom-out" aria-label="Perkecil" title="Perkecil">−</button>
+            <button type="button" id="reset" aria-label="Kembalikan kamera" title="Kembalikan kamera">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 10a8 8 0 1 1 1 7m-1-7V4m0 6h6"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="sheet-bar sheet-foot">
+          <div class="legend" aria-label="Legenda zona">
+            <span><i class="public"></i> Publik</span>
+            <span><i class="clinical"></i> Perawatan</span>
+            <span><i class="staff"></i> Staf</span>
+          </div>
+          <p id="status" role="status">Memuat maket 3D…</p>
+        </div>
+      </section>
+      <noscript><p>Aktifkan JavaScript untuk membuka denah dan maket.</p></noscript>
+
+      <section class="directory" id="ruang" aria-labelledby="directory-title">
+        <div class="section-head">
+          <div>
+            <p class="kicker"><span></span> Indeks denah</p>
+            <h2 id="directory-title">Daftar ruang</h2>
+          </div>
+          <a href="#stage">Kembali ke maket <span aria-hidden="true">↑</span></a>
+        </div>
+        <div class="directory-body">
+          <div class="room-groups" id="room-groups"></div>
+          <article class="room-detail" aria-labelledby="detail-title">
+            <p id="detail-meta" class="kicker">Ringkasan rancangan</p>
+            <div aria-live="polite">
+              <h3 id="detail-title">Satu lantai, tiga zona</h3>
+              <p id="detail-text">Pasien masuk dari sisi parkir. Tiga ruang perawatan menghadap koridor tengah, sementara area staf dan utilitas terkumpul di sisi kanan dan belakang.</p>
+            </div>
+            <button type="button" id="focus-room" hidden>Fokus ke ruang <span aria-hidden="true">↗</span></button>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer class="wrap footer">
+      <span>Kelompok 31 · IKGMP · Universitas Brawijaya · 2026</span>
+      <span>Denah konseptual · Dimensi ilustratif</span>
+    </footer>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
