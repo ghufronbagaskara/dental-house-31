@@ -80,7 +80,6 @@ export async function createViewer(host, markers, onRoom) {
     const projected = new T.Vector3()
 
     function render() {
-      frame = 0
       if (!active || !width || !height) return
       renderer.render(scene, camera)
       if (mode === 'facade') return
@@ -100,7 +99,12 @@ export async function createViewer(host, markers, onRoom) {
     }
 
     function requestRender() {
-      if (active && !frame) frame = requestAnimationFrame(render)
+      if (active && !frame) {
+        frame = requestAnimationFrame(() => {
+          frame = 0
+          render()
+        })
+      }
     }
 
     function resize() {
@@ -182,6 +186,13 @@ export async function createViewer(host, markers, onRoom) {
     new ResizeObserver(resize).observe(host)
 
     return {
+      capture() {
+        if (!active || !width || !height || renderer.getContext().isContextLost()) {
+          throw new Error('Model is unavailable')
+        }
+        render()
+        return canvas
+      },
       show(view) {
         active = view !== 'plan'
         if (!active) return

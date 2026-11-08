@@ -1,5 +1,6 @@
 import './style.css'
 import { corridor, parking, rooms, site, walls, zones } from './layout.js'
+import { capturePlan, captureModel, downloadPng } from './screenshot.js'
 
 const get = (id) => document.getElementById(id)
 const stage = get('stage')
@@ -132,6 +133,24 @@ function drawDirectory() {
 
 drawPlan()
 drawDirectory()
+const screenshot = get('screenshot')
+screenshot.disabled = false
+screenshot.addEventListener('click', async () => {
+  screenshot.disabled = true
+  try {
+    const mode = plan.hidden ? view : 'plan'
+    const image = mode === 'plan'
+      ? await capturePlan(plan, getComputedStyle(stage).backgroundColor)
+      : captureModel(viewer.capture(), markers)
+    downloadPng(image, 'Dental-House-31-' + mode + '.png')
+    updateStatus()
+  } catch (error) {
+    console.warn('Dental House: screenshot gagal.', error)
+    status.textContent = 'Screenshot gagal. Coba lagi.'
+  } finally {
+    screenshot.disabled = false
+  }
+})
 for (const button of viewButtons) button.addEventListener('click', () => setView(button.dataset.view))
 get('zoom-in').addEventListener('click', () => viewer?.zoom(1.23))
 get('zoom-out').addEventListener('click', () => viewer?.zoom(1 / 1.23))
